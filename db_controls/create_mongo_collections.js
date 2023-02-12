@@ -2,9 +2,11 @@
 const mongoose = require("mongoose");
 const create_database = require("./create_mongo_db");
 
-function create_schema(user_name){
+//mongoose will automatically create new schema if not available else it will connect collection
+function create_schema(user_name){   
+      
     var dynamic_schema=new mongoose.Schema({},{strict:false});
-    dynamic_model= mongoose.model(user_name, dynamic_schema);
+    var dynamic_model= mongoose.model(user_name, dynamic_schema);
     return dynamic_model;
 }
 
