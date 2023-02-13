@@ -1,7 +1,7 @@
 
 
-
-const mysql=require("../db_controls/sql_control")
+const mongo_authentication = require("../db_controls/auth_mongo_db");
+//const mysql=require("../db_controls/sql_control")
 
 //jwt token
 const jwt = require("jsonwebtoken");
@@ -22,7 +22,7 @@ const user_login = (req, res) => {
 
     // checking username in  mysql database ------
 
-    mysql.get_perticular_User(req.body.username).then((result) => {
+    mongo_authentication.get_particular_user(req.body.username).then((result) => {
 
         // making data model for jwt token to used -----
         
@@ -73,14 +73,17 @@ const user_login = (req, res) => {
 
             jwt.sign({ data }, jwt_key, (err, token) => {
                 console.log(data)
-                mysql.insert_token(token, data.user_name);   // inserting token in mysql server
-                res.json(token);
+                mongo_authentication.insert_token(token, data.user_name);   // inserting token in mysql server
+                res.json(
+                    {"token":token,
+                "success":1});
             })
 
         }
         else {
 
-            res.send("wrong password entered..!!!!!")
+            res.json({"message":"wrong password entered..!!!!!",
+        "success":0})
             console.log("wrong password entered...")
         }
 
@@ -88,7 +91,7 @@ const user_login = (req, res) => {
 
     }).catch(() => {
 
-        res.send("username is not correct entered....!!!!!!")
+        res.json({"message":"username is not correct entered....!!!!!!","success":0})
         console.log("username is not correct entered....")
     })
 

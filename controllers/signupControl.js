@@ -8,6 +8,7 @@ const jwt_key = "survey"
 // crypto setup -----
 
 const crypto = require("crypto");
+const mongo_authentication = require("../db_controls/auth_mongo_db");
 const algorithm = 'aes-192-cbc';
 const iv = Buffer.alloc(16, 0);
 const password = 'bncaskdbvasbvlaslslasfhj';
@@ -43,14 +44,27 @@ const user_reg = function (req, res) {
     cipher.write(pass_main);
     cipher.end();
 
-    mysql.save(req.body.username,req.body.email_id, encrypted).then(() => {
+    // mysql.save(req.body.username,req.body.email_id, encrypted).then(() => {
 
-        res.send("save succussfully pass and user name....")
+    //     res.status(200).json({message:"save succussfully pass and user name...."})
+    // }).catch((e) => {
+    //     console.log(e);
+    //     res.send("you not entered data correctly....!!!!!!!!")
+    // });
+ 
+    auth_document={
+        user_name:req.body.username,
+        email:req.body.email_id,
+        password:encrypted,
+        token:""
+    }
+     
+    mongo_authentication.save_authentication("admin_auth","auth",auth_document).then((result)=>{
+        res.status(200).json({message:"save succussfully pass and user name...."})
     }).catch((e) => {
-        console.log(e);
-        res.send("you not entered data correctly....!!!!!!!!")
-    });
-
+            console.log(e);
+            res.send("you not entered data correctly....!!!!!!!!")
+    })
 }
 
 module.exports=user_reg;
