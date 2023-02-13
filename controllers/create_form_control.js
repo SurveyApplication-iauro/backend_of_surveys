@@ -1,6 +1,4 @@
-const create_database = require("../db_controls/create_mongo_db");
-const mongoose=require("mongoose");
-const create_schema=require("../db_controls/create_mongo_collections");
+
 const admin_forms_info = require("../db_controls/admins_forms_info_db");
 const create_db_collection = require("../db_controls/create_mongo_db");
 
