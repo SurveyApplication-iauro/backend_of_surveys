@@ -2,14 +2,12 @@ const create_database = require("../db_controls/create_mongo_db");
 const mongoose=require("mongoose");
 const create_schema=require("../db_controls/create_mongo_collections");
 const admin_forms_info = require("../db_controls/admins_forms_info_db");
+const create_db_collection = require("../db_controls/create_mongo_db");
 
 function create_form(req,res){
-    var admin=req.body.admin_name;
-
+    var admin_name=req.body.admin_name;
+    var form_name=req.body.title;
     
-    var connection=create_database(admin);
-    var title=req.body.title;
-    var Model=create_schema(title)
     
     
     
@@ -19,20 +17,13 @@ function create_form(req,res){
         q2:req.body.q2
     }
 
-    var collection=new Model(questions)
+    create_db_collection(admin_name,form_name,questions)
 
-collection.save().then((result)=>{
-    console.log(result);
-    mongoose.connection.close().then(()=>{
-        console.log("the create_form connection has been stoped ")
-        admin_forms_info.save_admin_form_info(admin,title)
-    });
-    
+    admin_forms_info.save_admin_form_info(admin_name,form_name)
+
     
 
-}).catch((err)=>{
-    console.log(err)
-})
+
 
 // mongoose.connection.close();
 // save_admin_form_info(admin,title)
