@@ -74,15 +74,14 @@ const user_login = (req, res) => {
             jwt.sign({ data }, jwt_key, (err, token) => {
                 console.log(data)
                 mongo_authentication.insert_token(token, data.user_name);   // inserting token in mysql server
-                res.json(
-                    {"token":token,
-                "success":1});
+                res.status(200).json(
+                    token);
             })
 
         }
         else {
 
-            res.json({"message":"wrong password entered..!!!!!",
+            res.status(401).json({"message":"wrong password entered..!!!!!",
         "success":0})
             console.log("wrong password entered...")
         }
@@ -91,7 +90,7 @@ const user_login = (req, res) => {
 
     }).catch(() => {
 
-        res.json({"message":"username is not correct entered....!!!!!!","success":0})
+        res.status(401).json({"message":"username is not correct entered....!!!!!!"})
         console.log("username is not correct entered....")
     })
 
