@@ -29,8 +29,8 @@ const user_login = (req, res) => {
 
         var data = {
 
-            user_name: result[0].user_name,
-            password: result[0].password
+            user_name: result.user_name,
+            password: result.password
         }
 
 
@@ -88,8 +88,8 @@ const user_login = (req, res) => {
 
 
 
-    }).catch(() => {
-
+    }).catch((err) => {
+        console.log(err)
         res.status(401).json({"message":"username is not correct entered....!!!!!!"})
         console.log("username is not correct entered....")
     })

@@ -25,14 +25,14 @@ async function user_get_questions(req,res){
 
 
 async function user_fill_form(req,res){
-    
+    console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiii")
   form_name=req.params.form_name
-    console.log(form_name)
+    console.log("form name",form_name)
     admin_name=req.params.admin_name
-
+   console.log("admin_name",admin_name)
     document={type:"answers",
                 
-              user_name:"jaydev"
+              user_name:"krrish"
   
   
              };
@@ -41,9 +41,9 @@ async function user_fill_form(req,res){
        Object.assign(document,{["q"+k]:i})
        k++;
     }
-
+console.log(document)
     users_ans=req.body
-    save_form_answer(admin_name,form_name,users_ans).then((result)=>{
+    save_form_answer(admin_name,form_name,document).then((result)=>{
         console.log(result)
         res.send("your answers has been saved successfully !")
     })

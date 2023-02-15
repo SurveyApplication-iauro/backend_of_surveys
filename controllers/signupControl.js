@@ -59,7 +59,7 @@ const user_reg = function (req, res) {
         token:""
     }
      
-    mongo_authentication.save_authentication("admin_auth","auth",auth_document).then((result)=>{
+    mongo_authentication.save_authentication("admin_auth","authentication",auth_document).then((result)=>{
         res.status(200).json({message:"save succussfully pass and user name...."})
     }).catch((e) => {
             console.log(e);
