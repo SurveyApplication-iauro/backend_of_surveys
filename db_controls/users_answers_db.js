@@ -29,7 +29,11 @@ function get_forms_questions(db_name,collection_name) {
 
 function save_form_answer(db_name,collection_name,ans_doc){
 
+
     console.log("Enter in saving answers",db_name,collection_name,ans_doc);
+
+   
+
   
     return MongoClient.connect(url).then(( db)=> {
      
@@ -49,6 +53,7 @@ function save_form_answer(db_name,collection_name,ans_doc){
 
 
 }
+
 
 ////get responses............................
 // function get_form_responses(db_name,collection_name){

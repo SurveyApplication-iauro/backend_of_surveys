@@ -4,12 +4,14 @@ const { get_forms_questions, save_form_answer } = require("../db_controls/users_
 
 
 async function user_get_questions(req,res){
+
   admin_name=req.params.admin
 
   form_name=req.params.title
 
   get_forms_questions(admin_name,form_name).then((result)=>{
          console.log(result)
+
          var document=[]
          for(let i in result){
           if(i!="_id"){ 
@@ -25,6 +27,7 @@ async function user_get_questions(req,res){
 
 
 async function user_fill_form(req,res){
+
     console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiii")
   form_name=req.params.form_name
     console.log("form name",form_name)
@@ -44,6 +47,8 @@ async function user_fill_form(req,res){
 console.log(document)
     users_ans=req.body
     save_form_answer(admin_name,form_name,document).then((result)=>{
+   
+
         console.log(result)
         res.send("your answers has been saved successfully !")
     })
