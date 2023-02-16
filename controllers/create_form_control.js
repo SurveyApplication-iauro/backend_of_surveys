@@ -3,19 +3,30 @@ const admin_forms_info = require("../db_controls/admins_forms_info_db");
 const create_db_collection = require("../db_controls/create_mongo_db");
 
 function create_form(req,res){
+    
+    
     var admin_name=req.user_name;
-    var form_name=req.body.title;
     
-    
-    
-    
+    //var admin_name="jaydev"
+    //var form_name=req.body.title;
+    console.log(req.body)
+    var form_name=req.body[0].Title
 
-    var questions={
-        q1:req.body.q1,
-        q2:req.body.q2
+    document={type:"questions"};
+    k=0;
+    for(i of req.body){
+       Object.assign(document,{["q"+k]:i})
+       k++;
     }
+    
+    console.log(document)
+    
+    
+   console.log(req.body[0].Title)
 
-    create_db_collection(admin_name,form_name,questions)
+    console.log(typeof(req.body))
+
+    create_db_collection(admin_name,form_name,document)
 
     admin_forms_info.save_admin_form_info(admin_name,form_name)
 
@@ -27,7 +38,7 @@ function create_form(req,res){
 // save_admin_form_info(admin,title)
 
 
-res.send("saved successfully")
+res.json({"messgae":"saved successfully"})
 
 }
 
