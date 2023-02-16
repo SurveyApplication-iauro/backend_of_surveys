@@ -14,7 +14,7 @@ async function user_get_questions(req,res){
 
          var document=[]
          for(let i in result){
-          if(i!="_id"){ 
+          if(i!="_id"&&i!="type"){ 
           document.push(result[i])
         }
          }
@@ -29,17 +29,15 @@ async function user_get_questions(req,res){
 async function user_fill_form(req,res){
 
     console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+    console.log("the request body",req.body)
   form_name=req.params.form_name
     console.log("form name",form_name)
     admin_name=req.params.admin_name
    console.log("admin_name",admin_name)
     document={type:"answers",
-                
-              user_name:"krrish"
-  
-  
+          
              };
-    k=0;
+    k=-1;
     for(i of req.body){
        Object.assign(document,{["q"+k]:i})
        k++;
