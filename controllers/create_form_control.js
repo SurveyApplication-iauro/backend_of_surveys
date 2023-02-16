@@ -3,11 +3,14 @@ const admin_forms_info = require("../db_controls/admins_forms_info_db");
 const create_db_collection = require("../db_controls/create_mongo_db");
 
 function create_form(req,res){
+    
+    
     var admin_name=req.user_name;
     
     //var admin_name="jaydev"
     //var form_name=req.body.title;
-    var form_name=req.body[0].data.formTitle
+    console.log(req.body)
+    var form_name=req.body[0].Title
 
     document={type:"questions"};
     k=0;
@@ -19,7 +22,7 @@ function create_form(req,res){
     console.log(document)
     
     
-    console.log(req.body[0].data.formTitle)
+   console.log(req.body[0].Title)
 
     console.log(typeof(req.body))
 
